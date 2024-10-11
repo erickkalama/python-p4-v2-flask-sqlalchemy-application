@@ -1,20 +1,14 @@
-# server/app.py
-#!/usr/bin/env python3
-
-from flask import Flask, make_response
-from flask_migrate import Migrate
-
-from models import db, Pet
+from flask import Flask
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-migrate = Migrate(app, db)
+@app.route('/')
+def index():
+    return '<h1>Welcome to my page!</h1>'
 
-db.init_app(app)
-
-# add views here 
+@app.route('/<string:username>')
+def user(username):
+    return f'<h1>Profile for {username}</h1>'
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
